@@ -1,0 +1,79 @@
+1. import java.util.Scanner;
+
+public class laboratory {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner input = new Scanner(System.in);
+
+        int radius;
+        double length;
+
+        System.out.print("Geriin radius: ");
+        radius = input.nextInt();
+
+        length = radius*3.14*2*3;
+
+        System.out.printf("Busnii urt " + length);
+
+        input.close();
+    }
+2. package lab2;
+import java.util.Scanner;
+
+public class lab2 {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        double number1, number2, arithmetic, geometry, sum;
+
+        System.out.print("Ehnii too: ");
+        number1 = input.nextInt();
+
+        System.out.print("hoyr doh too: ");
+        number2 = input.nextInt();
+
+        sum = number1 + number2;
+
+        arithmetic = sum/2;
+
+        System.out.printf("arithmetic dundaj ni " + arithmetic + "\n");
+
+        geometry = Math.sqrt(number1*number2);
+
+        System.out.printf("geometry dundaj ni " + geometry);
+
+        input.close();
+    }
+}
+3. package lab2;
+import java.util.Scanner;
+
+public class laboratory3 {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        int aY, aX, bY, bX, cY, cX, area;
+
+        System.out.print("ehnii ugsun tseg: ");
+        aY = input.nextInt();
+        aX = input.nextInt();
+
+        System.out.print("hoyrdoh tseg: ");
+        bY = input.nextInt();
+        bX = input.nextInt();
+
+        System.out.print("guravdah tseg: ");
+        cY = input.nextInt();
+        cX = input.nextInt();
+
+        area = ((aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY)))/2;
+
+        System.out.printf("area is %d", area);
+
+        input.close();
+
+    }
+}
