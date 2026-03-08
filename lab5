@@ -1,0 +1,45 @@
+package statistic;
+
+import java.util.Scanner;
+
+public class statistic {
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+
+        double number1, number2, number3, number4, number5, arithmetic, num1, num2, num3, num4, num5, sum1, sum2, standard;
+
+        System.out.print("Ehnii too: ");
+        number1 = input.nextInt();
+
+        System.out.print("hoyr doh too: ");
+        number2 = input.nextInt();
+
+        System.out.print("gurav dah too: ");
+        number3 = input.nextInt();
+
+        System.out.print("duruv duh too: ");
+        number4 = input.nextInt();
+
+        System.out.print("tav dah too: ");
+        number5 = input.nextInt();
+
+        sum1 = number1 + number2 + number3 + number4 + number5;
+
+        arithmetic = sum1/2;
+
+        System.out.printf("arithmetic dundaj ni " + arithmetic + "\n");
+
+        num1 = number1 - arithmetic;
+        num2 = number2 - arithmetic;
+        num3 = number3 - arithmetic;
+        num4 = number4 - arithmetic;
+        num5 = number5 - arithmetic;
+
+        sum2 = num1*num1 + num2*num2 + num3*num3 + num4*num4 + num5*num5;
+
+        standard = sum2/5;
+
+        System.out.printf("standard hazailt ni " + standard + "\n");
+    }
+}
