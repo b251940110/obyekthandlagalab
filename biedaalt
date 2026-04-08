@@ -8,14 +8,6 @@ public class Student {
     private String mergejil;
     private double onoo;
 
-    public Student() {
-        this.ner = "Unknown";
-        this.ovog = "Unknown";
-        this.nas = 0;
-        this.mergejil = "None";
-        this.onoo = 0.0;
-    }
-
     public Student(String n, String o, int age, String m, double s) {
         this.ner = n;
         this.ovog = o;
