@@ -1,0 +1,59 @@
+package biedaalt;
+
+public class Student {
+
+    private String ner;
+    private String ovog;
+    private int nas;
+    private String mergejil;
+    private double onoo;
+
+    public Student(String n, String o, int age, String m, double s) {
+        this.ner = n;
+        this.ovog = o;
+        this.nas = age;
+        this.mergejil = m;
+        this.onoo = s;
+    }
+
+    private String vnelgeeTootsoh() {
+        { if (onoo >= 95)
+            return "4.0 (A+)";
+        } else  if (onoo >= 90) {
+            return "3.7 (A)";
+        } else if (onoo >= 80) {
+            return "3.0 (B)";
+        } else if (onoo >= 70) {
+            return "2.0 (C)";
+        } else if (onoo >= 60) {
+            return "1.2 (D)";
+        } else if (onoo >= 50)
+            return "1.0 (F)";
+        }
+    }
+
+    public static void surguuliinMedeelel() {
+        System.out.println("SHUTIS - Medeelel Texnologiin Angi");
+    }
+
+    public void medeelelHaruulah() {
+        System.out.println("Oyutnii ovog ner: " + ovog + " " + ner);
+        System.out.println("Nas: " + nas);
+        System.out.println("Surj bui mergejil: " + mergejil);
+        System.out.println("Semestriin onoo: " + onoo);
+        System.out.println("Vnelgee: " + vnelgeeTootsoh());
+    }
+
+    public static void main(String[] args) {
+        Student.surguuliinMedeelel();
+        System.out.println();
+
+        Student s1 = new Student("Umnud", "Bat", 18, "IT", 88.5);
+        Student s2 = new Student("Hoid", "Bat", 19, "Software", 92.0);
+        Student s3 = new Student("Urd", "Bat", 20, "Network", 55.0);
+
+        s1.medeelelHaruulah();
+        s2.medeelelHaruulah();
+        s3.medeelelHaruulah();
+    }
+}
