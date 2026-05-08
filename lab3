@@ -1,0 +1,51 @@
+package lab3;
+import java.util.Scanner;
+
+public class Savings {
+
+    private static String Ner;
+    private static String currency = "₮";
+    private static double jiliinhuu = 10;
+    private static double undsenuldegdel;
+    private static int hugatsaa;
+    static double hurimtlagdsanhuu;
+    static double etssiinuldegdel;
+
+    public static void main(String args[]) {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Hadgalamjand burtguulsen irgenii ner: ");
+        Ner = input.next();
+
+        System.out.print("Ta hadgalah hugatsaagaa oruulna uu (saraar): ");
+        hugatsaa = input.nextInt();
+
+        System.out.print("Ta undsen uldegdelee oruulna uu: ");
+        undsenuldegdel = input.nextDouble();
+
+        
+        hurimtlagdsanhuu = (undsenuldegdel * (jiliinhuu / 12) * hugatsaa) / 100;
+
+        etssiinuldegdel = hurimtlagdsanhuu + undsenuldegdel;
+
+        SavingsReport();
+
+        input.close();}
+    
+
+    public static void SavingsReport() {
+
+    	System.out.println();
+    	System.out.println("Ta \"Altan tulhuur hadgalamj\"-d " + undsenuldegdel + currency + "-iig " 
+    	        + hugatsaa + " sariin hugatsaatai, jiliin " 
+    	        + jiliinhuu + "%-iin huutei hadgaluulbal:");
+
+    	System.out.println("Hadgalamjiin uldegdel: " 
+    	        + etssiinuldegdel + currency + " bolno.");
+
+    	System.out.println("Hurimtlagdsan huu: " 
+    	        + hurimtlagdsanhuu + currency + " baina.");
+
+    }
+}
