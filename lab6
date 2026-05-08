@@ -19,7 +19,7 @@ public class main {
 
 	        int[][] m1 = new int[mur1][bag1];
 
-	        System.out.println("Matrix1 element oruul:");
+	        System.out.println("Matrix1 utga oruul:");
 
 	        for (int i = 0; i < mur1; i++) {
 	            for (int j = 0; j < bag1; j++) {
@@ -46,7 +46,7 @@ public class main {
 
 	        int[][] m2 = new int[mur2][bag2];
 
-	        System.out.println("Matrix2 element oruul:");
+	        System.out.println("Matrix2 utga oruul:");
 
 	        for (int i = 0; i < mur2; i++) {
 	            for (int j = 0; j < bag2; j++) {
