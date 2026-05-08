@@ -2,7 +2,7 @@ MAIN CLASS -
 package lab9;
 import java.util.Scanner;
 public class main {
-public static void Main(String[] args) {
+public static void main(String[] args) {
 	Scanner sc = new Scanner(System.in);
 	clock clock = new clock();
 	System.out.println("1.Garaar tohiruulah");
