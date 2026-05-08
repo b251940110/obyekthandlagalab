@@ -1,0 +1,157 @@
+MAIN CLASS - 
+package lab7;
+import java.util.Scanner;
+
+public class main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        studentmanager manager = new studentmanager();
+
+        while (true) {
+            System.out.println("1.Oyutan nemeh");
+            System.out.println("2. Oyutan ustgah");
+            System.out.println("3. Oyutan haih");
+            System.out.println("4. Erembeleh");
+            System.out.println("5. Buh oyutnii medeelel harah");
+            System.out.println("6. Garah");
+            System.out.print("Songolt: ");
+
+            int choice = sc.nextInt();
+            sc.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Ner: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Nas: ");
+                    int age = sc.nextInt();
+                    sc.nextLine();
+
+                    System.out.print("ID: ");
+                    String id = sc.nextLine();
+
+                    student s = new student(name, age, id);
+                    manager.addStudent(s);
+                    break;
+
+      case 2:
+           System.out.print("Ustgah ID: ");
+         String removeId = sc.nextLine();
+            manager.removeStudent(removeId);
+           break;
+
+                case 3:
+                   System.out.print("Haih ID: ");
+                   String searchId = sc.nextLine();
+                    student found = manager.findStudent(searchId);
+
+                    if (found != null) {
+                        System.out.println("Ur dun: " + found);
+                    } else {
+                        System.out.println("Oldsongui.");
+                    }
+                    break;
+
+                case 4:
+                    manager.sortByName();
+                    break;
+
+                case 5:
+                    manager.printAllStudents();
+                    break;
+
+                case 6:
+                    System.out.println("program duuslaa.");
+                    return;
+
+                default:
+                    System.out.println("Songolt buruu bn!");
+            }
+        }
+    }
+}
+
+
+STUDENT CLASS -
+package lab7;
+
+public class student {
+	private String name;
+	private int age;
+	private String studentId;
+	
+	public student(String name, int age, String studentId) {  
+		this.name = name;
+		this.age = age;
+		this.studentId = studentId;
+		}
+		
+		  public String getStudentId() {
+		        return studentId;
+		    }
+
+		    public String getName() {
+		        return name;
+		    }
+		    public String toString() {
+		        return "ID: " + studentId + ", Ner: " + name + ", Nas: " + age;
+		    }  
+	}
+
+
+STUDENTMANAGER CLASS -
+package lab7;
+import java.util.*;
+public class studentmanager {
+    private List<student> students;
+
+    public studentmanager() {
+        students = new ArrayList<>();
+    }
+    public void addStudent(student s) {
+        students.add(s);
+        System.out.println("Oyutan amjilttai nemegdlee.");
+    }
+
+    public void removeStudent(String studentId) {
+        Iterator<student> it = students.iterator();
+
+        while (it.hasNext()) {
+            student s = it.next();
+            if (s.getStudentId().equals(studentId)) {
+                it.remove();
+                System.out.println("Oyutan ustgagdlaa.");
+                return;
+            }
+        }
+        System.out.println("Oyutan oldsongui.");
+    }
+
+    
+    public student findStudent(String studentId) {
+        for (student s : students) {
+            if (s.getStudentId().equals(studentId)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+   
+    public void printAllStudents() {
+        if (students.isEmpty()) {
+            System.out.println("List hooson bn.");
+            return;
+        }
+
+        for (student s : students) {
+            System.out.println(s);
+        }
+    }
+
+    public void sortByName() {
+        students.sort(Comparator.comparing(student::getName));
+        System.out.println("Nereer ermbellee.");
+    }
+}
