@@ -1,0 +1,89 @@
+MAIN CLASS -
+
+
+package lab10;
+
+public class main {
+public static void Main(String[] args) {
+	worker w1 = new worker("Ганбат", "Батчулуун", "ТА00231308", "2000-03-13", "P.IT13", "Эрдэнэт цогцолбор дээд сургууль", "2017-09-05" );
+	worker w2 = new worker("Болд", "Жавхаа", "ФД07121308", "2007-12-25", "P.IT17", "Эрдэнэт цогцолбор дээд сургууль", "2024-07-23" );
+System.out.println("Ajiltnii medeeelel: ");
+	w1.info(); 
+	System.out.println("\nAjiltnii medeeelel: ");
+w2.info();
+}}
+
+PERSON CLASS -
+
+
+package lab10;
+
+public class person {
+	  // Гишүүн өгөгдлүүд
+	  protected String ovog;
+	  protected String ner;
+	  protected String register;
+	  protected String tursunUdur;
+
+	  public person(String ovog, String ner, String register, String tursunUdur ) {
+	  this.ovog = ovog;
+	  this.ner = ner;
+	  this.register = register;
+	  this.tursunUdur = tursunUdur;
+	  }
+	  
+	  // Гишүүн методууд
+	  protected String getFullName(String ovog, String ner) {
+	  return ovog.charAt(0) + "." + ner;}
+	  
+	  // Энэ метод нь хүний овог нэрийг авахдаа овгийн эхний үсэг 
+	  // болон өөрийн нэрийг ашиглан дараах хэлбэрийн дагуу авна.
+	  // Овог, нэрийн хэлбэр: Г.Батчулуун
+	  protected int getYear(String date) {
+		  return Integer.parseInt(date.substring(0, 4));
+	  }
+	  protected int getMonth(String date) {
+		  return Integer.parseInt(date.substring(5, 7));
+	  }
+	  protected int getDay(String date) {
+		  return Integer.parseInt(date.substring(8, 10));
+	  }
+	  protected void info() {
+		  System.out.println("Ovog ner: " + getFullName(ovog, ner));
+		  System.out.println("Register: " + register);
+		  System.out.println("Tursun udur: " + tursunUdur);
+		  System.out.println("Tursun on: " + getYear(tursunUdur));
+		  System.out.println("Tursun sar: " + getMonth(tursunUdur));
+		  System.out.println("Tursun udur: " + getDay(tursunUdur));
+	  }
+	}
+
+
+WORKER CLASS -
+
+
+package lab10;
+
+public class worker extends person {
+private String Akod; 
+private String Sner; 
+private String AorsonOgnoo;
+
+public worker(String ovog, String ner, String register, String tursunUdur, String Akod, String Sner, String AorsonOgnoo) {
+	super(ovog, ner, register, tursunUdur);
+	this.Akod = Akod;
+	this.Sner = Sner;
+	this.AorsonOgnoo = AorsonOgnoo;
+}
+
+@Override
+public void info() {
+	super.info();
+	 System.out.println("Ajiltnii kod: " + Akod);
+	  System.out.println("Salbariin ner: " + Sner);
+	  System.out.println("Ajild orson ognoo: " + AorsonOgnoo);
+	  System.out.println("Ajild orson on: " + getYear(AorsonOgnoo));
+	  System.out.println("Ajild orson sar: " + getMonth(AorsonOgnoo));
+	  System.out.println("Ajild orson udur: " + getDay(AorsonOgnoo));
+}
+}
