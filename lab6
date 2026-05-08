@@ -1,0 +1,166 @@
+MAIN CLASS -
+package lab6;
+
+import java.util.Scanner;
+
+public class main {
+	 public static void main(String[] args) {
+
+	        Scanner sc = new Scanner(System.in);
+
+	        System.out.print("Operatoro songoh (+, -, *): ");
+	        String operator = sc.next();
+
+	        System.out.print("Matrix(1)-iin mur: ");
+	        int mur1 = sc.nextInt();
+
+	        System.out.print("Matrix(1)-iin bagana: ");
+	        int bag1 = sc.nextInt();
+
+	        int[][] m1 = new int[mur1][bag1];
+
+	        System.out.println("Matrix1 element oruul:");
+
+	        for (int i = 0; i < mur1; i++) {
+	            for (int j = 0; j < bag1; j++) {
+	                System.out.print("[" + i + "][" + j + "] = ");
+	                m1[i][j] = sc.nextInt();
+	            }
+	        }
+
+	        System.out.print("Matrix(2)-iin mur: ");
+	        int mur2 = sc.nextInt();
+
+	        System.out.print("Matrix(2)-iin bagana: ");
+	        int bag2 = sc.nextInt();
+
+	        if ((operator.equals("+") || operator.equals("-")) && (mur1 != mur2 || bag1 != bag2)) {
+	            System.out.println("Matrix-iin hemjee ijil baih yostoi");
+	            return;
+	        }
+
+	        if (operator.equals("*") && bag1 != mur2) {
+	            System.out.println("Matrix-iig urjuulj bolohgui");
+	            return;
+	        }
+
+	        int[][] m2 = new int[mur2][bag2];
+
+	        System.out.println("Matrix2 element oruul:");
+
+	        for (int i = 0; i < mur2; i++) {
+	            for (int j = 0; j < bag2; j++) {
+	                System.out.print("[" + i + "][" + j + "] = ");
+	                m2[i][j] = sc.nextInt();
+	            }
+	        }
+
+	        matrix matrix = new matrix(m1, m2, operator);
+
+	        matrix.chooseoperation();
+	    }
+	}
+
+
+
+MATRIX CLASS -
+package lab6;
+
+public class matrix {
+
+    private int [][] operand1;
+    private int [][] operand2;
+    private String operator;
+
+    public matrix(int [][] operand1, int [][] operand2, String operator){ 
+        this.operand1 = operand1;
+        this.operand2 = operand2;
+        this.operator = operator;
+    }
+
+    private int [][] addition(int [][] operand1, int [][] operand2){
+        int row = operand1.length;
+        int col = operand1[0].length;
+
+        int[][] result = new int[row][col];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                result[i][j] = operand1[i][j] + operand2[i][j];
+            }
+        }
+        return result;
+    }
+
+    private int[][] subtraction(int[][] operand1, int[][] operand2) {
+
+        int row = operand1.length;
+        int col = operand1[0].length;
+
+        int[][] result = new int[row][col];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                result[i][j] = operand1[i][j] - operand2[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    private int[][] multiplication(int[][] operand1, int[][] operand2) {
+
+        int row = operand1.length;
+        int col = operand2[0].length;
+        int n = operand1[0].length;
+
+        int[][] result = new int[row][col];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                for (int k = 0; k < n; k++) {
+                    result[i][j] += operand1[i][k] * operand2[k][j];
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public int[][] chooseoperation() {
+
+        int[][] result = null;
+
+        if (operator.equals("+")) {
+            result = addition(operand1, operand2);
+        } 
+        else if (operator.equals("-")) {
+            result = subtraction(operand1, operand2);
+        } 
+        else if (operator.equals("*")) {
+            result = multiplication(operand1, operand2);
+        } 
+        else {
+            System.out.println("Buruu utga oruullaa!");
+        }
+
+        if (result != null) {
+            printmatrix(result);
+        }
+
+        return result;
+    }
+
+    private void printmatrix(int[][] pmatrix) {
+
+        System.out.println("Matrixin ur dun:");
+
+        for (int i = 0; i < pmatrix.length; i++) {
+            for (int j = 0; j < pmatrix[0].length; j++) {
+                System.out.print(pmatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }}
+
+   
