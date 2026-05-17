@@ -1,0 +1,250 @@
+DensityCalculator Class:
+
+package lab13;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class DensityCalculator implements ActionListener {
+
+    private JFrame frame;
+    private JTextField densityField, massField, volumeField;
+    private JComboBox<String> densityUnitBox, massUnitBox, volumeUnitBox, sigFigBox;
+    private JButton calculateButton, clearButton;
+    private JLabel answerLabel;
+
+    public DensityCalculator() {
+        frame = new JFrame("Density Calculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(460, 420);
+        frame.setLayout(new BorderLayout(8, 8));
+        frame.getContentPane().setBackground(new Color(190, 210, 230));
+
+        JPanel titlePanel = new JPanel();
+        titlePanel.setBackground(new Color(170, 195, 220));
+        titlePanel.setBorder(BorderFactory.createLineBorder(new Color(150, 175, 200)));
+        JLabel titleLabel = new JLabel("Density Calculator");
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titlePanel.add(titleLabel);
+        frame.add(titlePanel, BorderLayout.NORTH);
+
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBackground(new Color(190, 210, 230));
+        mainPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 6, 6, 6);
+        gbc.fill   = GridBagConstraints.HORIZONTAL;
+
+        JLabel formula = new JLabel(
+            "<html><div style='text-align:center;font-size:18pt;font-family:Serif;font-style:italic'>"
+          + "p = <u>&nbsp;m&nbsp;</u><br>&nbsp;&nbsp;&nbsp;&nbsp;V"
+          + "</div></html>");
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.CENTER;
+        mainPanel.add(formula, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor    = GridBagConstraints.WEST;
+
+        gbc.gridy = 1; gbc.gridx = 0;
+        mainPanel.add(new JLabel("density  p ="), gbc);
+
+        densityField = new JTextField("calculated density  🔒", 14);
+        densityField.setEditable(false);
+        densityField.setForeground(Color.GRAY);
+        densityField.setBackground(new Color(210, 225, 240));
+        gbc.gridx = 1;
+        mainPanel.add(densityField, gbc);
+
+        gbc.gridx = 2;
+        mainPanel.add(new JLabel("units"), gbc);
+
+        String[] densityUnits = {"g/cm³", "g/mL", "kg/m³", "lb/ft³", "kg/cm³"};
+        densityUnitBox = new JComboBox<>(densityUnits);
+        gbc.gridx = 3;
+        mainPanel.add(densityUnitBox, gbc);
+        gbc.gridy = 2; gbc.gridx = 0;
+        mainPanel.add(new JLabel("mass  m ="), gbc);
+
+        massField = new JTextField(14);
+        massField.setToolTipText("Масс оруулна уу");
+        gbc.gridx = 1;
+        mainPanel.add(massField, gbc);
+
+        String[] massUnits = {"g", "kg", "lb", "oz"};
+        massUnitBox = new JComboBox<>(massUnits);
+        gbc.gridx = 2; gbc.gridwidth = 2;
+        mainPanel.add(massUnitBox, gbc);
+        gbc.gridwidth = 1;
+
+        gbc.gridy = 3; gbc.gridx = 0;
+        mainPanel.add(new JLabel("volume  V ="), gbc);
+
+        volumeField = new JTextField(14);
+        volumeField.setToolTipText("Эзлэхүүн оруулна уу");
+        gbc.gridx = 1;
+        mainPanel.add(volumeField, gbc);
+
+        String[] volumeUnits = {"cm³", "mL", "m³", "ft³", "L"};
+        volumeUnitBox = new JComboBox<>(volumeUnits);
+        gbc.gridx = 2; gbc.gridwidth = 2;
+        mainPanel.add(volumeUnitBox, gbc);
+        gbc.gridwidth = 1;
+
+        gbc.gridy = 4; gbc.gridx = 0; gbc.gridwidth = 2;
+        mainPanel.add(new JLabel("Significant Figures"), gbc);
+
+        String[] sigFigs = {"auto", "1", "kg/m³", "lb/ft³", "300"};
+        sigFigBox = new JComboBox<>(sigFigs);
+        gbc.gridx = 2; gbc.gridwidth = 2;
+        mainPanel.add(sigFigBox, gbc);
+        gbc.gridwidth = 1;
+
+        gbc.gridy = 5; gbc.gridx = 0;
+        clearButton = new JButton("Clear");
+        clearButton.setBackground(new Color(210, 225, 240));
+        clearButton.addActionListener(this);
+        mainPanel.add(clearButton, gbc);
+
+        gbc.gridx = 3;
+        calculateButton = new JButton("Calculate");
+        calculateButton.setBackground(new Color(170, 200, 230));
+        calculateButton.setFont(new Font("SansSerif", Font.BOLD, 13));
+        calculateButton.addActionListener(this);
+        mainPanel.add(calculateButton, gbc);
+
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        JPanel answerPanel = new JPanel(new BorderLayout());
+        answerPanel.setBackground(new Color(210, 225, 240));
+        answerPanel.setBorder(BorderFactory.createLineBorder(new Color(150, 175, 200)));
+        answerLabel = new JLabel("Answer:");
+        answerLabel.setBorder(new EmptyBorder(6, 12, 6, 12));
+        answerLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        answerPanel.add(answerLabel, BorderLayout.CENTER);
+        frame.add(answerPanel, BorderLayout.SOUTH);
+
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == clearButton) {
+            massField.setText("");
+            volumeField.setText("");
+            densityField.setText("calculated density");
+            densityField.setForeground(Color.GRAY);
+            answerLabel.setText("Answer:");
+        } else if (e.getSource() == calculateButton) {
+            calculate();
+        }
+    }
+
+    private void calculate() {
+        try {
+            String massText   = massField.getText().trim();
+            String volumeText = volumeField.getText().trim();
+
+            if (massText.isEmpty() || volumeText.isEmpty()) {
+                JOptionPane.showMessageDialog(frame,
+                    "Масс болон эзлэхүүний утгыг оруулна уу!",
+                    "Оролтын алдаа", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            double mass   = Double.parseDouble(massText);
+            double volume = Double.parseDouble(volumeText);
+
+            if (mass < 0 || volume < 0) {
+                throw new IllegalArgumentException(
+                    "Масс болон эзлэхүүн сөрөг байж болохгүй!");
+            }
+
+            if (volume == 0) {
+                throw new ArithmeticException(
+                    "Эзлэхүүн 0 байж болохгүй! (0-д хуваах алдаа)");
+            }
+
+            double massG        = convertMassToGrams(mass,   (String) massUnitBox.getSelectedItem());
+            double volCm3       = convertVolumeToCm3(volume, (String) volumeUnitBox.getSelectedItem());
+            double densityGCm3  = massG / volCm3;
+
+            String dUnit        = (String) densityUnitBox.getSelectedItem();
+            double finalDensity = convertDensityFromGCm3(densityGCm3, dUnit);
+
+            String sigFig = (String) sigFigBox.getSelectedItem();
+            String result;
+            if ("auto".equals(sigFig)) {
+                result = String.valueOf(finalDensity);
+            } else {
+                result = String.format("%." + sigFig + "f", finalDensity);
+            }
+
+            densityField.setText(result);
+            densityField.setForeground(Color.BLACK);
+            answerLabel.setText("Answer:  " + result + " " + dUnit);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame,
+                "Тоон утга оруулна уу!\nТэмдэгт (үсэг) оруулж болохгүй.",
+                "Форматын алдаа", JOptionPane.ERROR_MESSAGE);
+        } catch (ArithmeticException ex) {
+            JOptionPane.showMessageDialog(frame,
+                ex.getMessage(),
+                "Математикийн алдаа", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(frame,
+                ex.getMessage(),
+                "Утгын алдаа", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frame,
+                "Тодорхойгүй алдаа гарлаа:\n" + ex.getMessage(),
+                "Алдаа", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private double convertMassToGrams(double mass, String unit) {
+        switch (unit) {
+            case "kg": return mass * 1000.0;
+            case "lb": return mass * 453.592;
+            case "oz": return mass * 28.3495;
+            default:   return mass;
+        }
+    }
+
+    private double convertVolumeToCm3(double volume, String unit) {
+        switch (unit) {
+            case "mL":  return volume;
+            case "m³":  return volume * 1_000_000.0;
+            case "ft³": return volume * 28316.8;
+            case "L":   return volume * 1000.0;
+            default:    return volume;
+        }
+    }
+
+    private double convertDensityFromGCm3(double d, String unit) {
+        switch (unit) {
+            case "g/mL":   return d;
+            case "kg/m³":  return d * 1000.0;
+            case "lb/ft³": return d * 62.428;
+            case "kg/cm³": return d / 1000.0;
+            default:       return d;
+        }
+    }
+}
+
+
+
+Main Class:
+
+package lab13;
+
+import javax.swing.SwingUtilities;
+
+public class main {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(DensityCalculator::new);
+    }
+}
