@@ -1,0 +1,110 @@
+Calculator Class:
+
+package lab12;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class calculator implements ActionListener {
+    private JFrame frame;
+    private JLabel label1, label2, resultLabel;
+    private JTextField numField1, numField2;
+    private JButton addButton, subButton, mulButton, divButton;
+
+    public calculator() {
+        frame = new JFrame("Тооны машин");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(350, 180);
+        frame.setLayout(null);
+
+        label1 = new JLabel("Нэгдүгээр операнд");
+        label1.setBounds(20, 10, 140, 20);
+        frame.add(label1);
+
+        numField1 = new JTextField();
+        numField1.setBounds(20, 35, 140, 30);
+        frame.add(numField1);
+
+        label2 = new JLabel("Хоёрдугаар операнд");
+        label2.setBounds(180, 10, 140, 20);
+        frame.add(label2);
+
+        numField2 = new JTextField();
+        numField2.setBounds(180, 35, 140, 30);
+        frame.add(numField2);
+
+        addButton = new JButton("+");
+        addButton.setBounds(20, 75, 70, 35);
+        addButton.addActionListener(this);
+        frame.add(addButton);
+
+        subButton = new JButton("-");
+        subButton.setBounds(95, 75, 70, 35);
+        subButton.addActionListener(this);
+        frame.add(subButton);
+
+        mulButton = new JButton("*");
+        mulButton.setBounds(175, 75, 70, 35);
+        mulButton.addActionListener(this);
+        frame.add(mulButton);
+
+        divButton = new JButton("÷");
+        divButton.setBounds(250, 75, 70, 35);
+        divButton.addActionListener(this);
+        frame.add(divButton);
+
+        resultLabel = new JLabel("Хариу: ");
+        resultLabel.setBounds(20, 120, 300, 25);
+        resultLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+        frame.add(resultLabel);
+
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+    }
+
+    private double add(double a, double b)      { return a + b; }
+    private double subtract(double a, double b) { return a - b; }
+    private double multiply(double a, double b) { return a * b; }
+    private double divide(double a, double b) {
+        if (b == 0) {
+            JOptionPane.showMessageDialog(frame, "0-д хувааж болохгүй!", "Алдаа", JOptionPane.ERROR_MESSAGE);
+            return 0;
+        }
+        return a / b;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            double num1 = Double.parseDouble(numField1.getText());
+            double num2 = Double.parseDouble(numField2.getText());
+            double result = 0;
+
+            if (e.getSource() == addButton) {
+                result = add(num1, num2);
+            } else if (e.getSource() == subButton) {
+                result = subtract(num1, num2);
+            } else if (e.getSource() == mulButton) {
+                result = multiply(num1, num2);
+            } else if (e.getSource() == divButton) {
+                result = divide(num1, num2);
+            }
+
+            resultLabel.setText("Хариу: " + result);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Зөв тоо оруулна уу!", "Алдаа", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+Main Class:
+
+package lab12;
+
+public class main {
+    public static void main(String[] args) {
+        new calculator();
+    }
+}
